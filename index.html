@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Passeio Virtual 360º</title>
+    
+    <!-- Pannellum CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css"/>
+    
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: #0b0b0b;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+        #panorama {
+            width: 100%;
+            height: 100%;
+        }
+        /* Estilo personalizado para os hotspots de navegação */
+        .custom-hotspot {
+            background: rgba(0, 122, 255, 0.85);
+            border: 2px solid #ffffff;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+            transition: transform 0.2s, background 0.2s;
+        }
+        .custom-hotspot:hover {
+            transform: scale(1.25);
+            background: rgba(0, 150, 255, 1);
+        }
+        /* Caixa de texto flutuante do hotspot */
+        .pnlm-tooltip span {
+            background-color: rgba(0, 0, 0, 0.8) !important;
+            border-radius: 4px;
+            padding: 5px 10px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="panorama"></div>
+
+    <!-- Pannellum JS -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
+
+    <script>
+        // Configuração completa do Tour Virtual
+        pannellum.viewer('panorama', {
+            "default": {
+                "firstScene": "ambiente1",
+                "author": "Desenvolvido com IA",
+                "autoLoad": true,
+                "compass": true,
+                "hfov": 100,
+                "sceneFadeDuration": 1000 // Transição suave entre cenas (1 segundo)
+            },
+
+            "scenes": {
+                "ambiente1": {
+                    "title": "Ambiente 01 (Entrada / Sala)",
+                    "type": "equirectangular",
+                    "panorama": "imagens/cena1.jpg",
+                    "hotSpots": [
+                        {
+                            "pitch": -5,
+                            "yaw": 110,
+                            "type": "scene",
+                            "text": "Ir para o Ambiente 02",
+                            "sceneId": "ambiente2",
+                            "cssClass": "custom-hotspot"
+                        }
+                    ]
+                },
+
+                "ambiente2": {
+                    "title": "Ambiente 02 (Área Interna)",
+                    "type": "equirectangular",
+                    "panorama": "imagens/cena2.jpg",
+                    "hotSpots": [
+                        {
+                            "pitch": -5,
+                            "yaw": -70,
+                            "type": "scene",
+                            "text": "Voltar para o Ambiente 01",
+                            "sceneId": "ambiente1",
+                            "cssClass": "custom-hotspot"
+                        }
+                    ]
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>
